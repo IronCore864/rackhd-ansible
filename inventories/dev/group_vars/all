@@ -1,0 +1,6 @@
+# ansible config
+ansible_user: ubuntu
+
+rackhd_ip: "{{ groups['rackhd'][0] }}"
+ntp_server: "{{ groups['infra'][0] }}"
+dns: "{{ groups['infra'][0] }}"

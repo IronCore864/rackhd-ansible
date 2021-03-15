@@ -1,0 +1,19 @@
+---
+- name: Create directory for monorail config file
+  file:
+    path: /opt/monorail/
+    state: directory
+    mode: 0777
+  become: true
+
+- name: Load monorail conf onto guest
+  template:
+    src: config.json.j2
+    dest: /opt/monorail/config.json
+  become: true
+
+- name: Load smi conf onto guest
+  template:
+    src: smiConfig.json.j2
+    dest: /opt/monorail/smiConfig.json
+  become: true

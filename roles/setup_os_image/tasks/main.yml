@@ -1,0 +1,29 @@
+---
+- name: Create iso folder
+  file: path={{ iso_store_path }} state=directory
+
+- name: Download iso file
+  get_url:
+    url: "{{ so_image_url }}"
+    dest: "{{ iso_store_path }}/{{ so_image_name }}"
+    checksum: "{{ so_image_checksum }}"
+
+- name: Create mirror folder
+  become: yes
+  file: path=/var/mirrors/{{ so_distribution }} state=directory
+
+- name: Mount iso
+  become: yes
+  mount:
+    src: "{{ iso_store_path }}/{{ so_image_name }}"
+    path: /var/mirrors/{{ so_distribution }}
+    fstype: iso9660
+    state: mounted
+
+- name: link http static folder with SO image
+  become: yes
+  file:
+    src: "/var/mirrors/{{ so_distribution }}"
+    dest: "{{ on_http_dir }}/static/http/{{ so_distribution }}"
+    state: link
+

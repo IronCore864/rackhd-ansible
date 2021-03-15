@@ -1,0 +1,5 @@
+---
+- hosts: infra
+  roles:
+    - ntp
+    - setup_dns_server

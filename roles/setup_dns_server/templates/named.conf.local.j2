@@ -1,0 +1,9 @@
+zone "{{ zone }}" {
+    type master;
+    file "/etc/bind/zones/db.{{ zone }}"; # zone file path
+};
+
+zone "{{ reverse_zone }}.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.{{ reverse_zone }}";
+};

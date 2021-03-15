@@ -1,0 +1,57 @@
+---
+- name: Create http static dir
+  file:
+    path: "{{ http_static_directory }}/common"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    mode: 0755
+  become: true
+
+- name: Create tftp static dir
+  file:
+    path: "{{ tftp_static_directory }}"
+    state: directory
+    owner: "{{ ansible_env.USER }}"
+    mode: 0755
+  become: true
+
+- name: Retrieve microkernel and overlays from bintray
+  get_url:
+    url: "https://bintray.com/artifact/download/rackhd/binary/builds/{{ item }}"
+    dest: "{{ http_static_directory }}/common/{{ item }}"
+    validate_certs: no
+    force: yes
+  with_items:
+    - base.trusty.3.16.0-25-generic.squashfs.img
+    - discovery.docker.tar.xz
+    - discovery.overlay.cpio.gz
+    - initrd-0.5.0-rancher
+    - initrd-1.0.2-rancher
+    - initrd-1.2.0-rancher
+    - initrd.img-3.16.0-25-generic
+    - vmlinuz-0.5.0-rancher
+    - vmlinuz-1.0.2-rancher
+    - vmlinuz-1.2.0-rancher
+    - vmlinuz-3.16.0-25-generic
+
+- name: Retrieve the latest bootloaders from bintray
+  get_url:
+    url: "https://bintray.com/artifact/download/rackhd/binary/ipxe/{{ item }}"
+    dest: "{{ tftp_static_directory }}/{{ item }}"
+    validate_certs: no
+    force: yes
+  with_items:
+    - monorail.ipxe
+    - monorail-undionly.kpxe
+    - monorail-efi32-snponly.efi
+    - monorail-efi64-snponly.efi
+    - monorail.intel.ipxe
+
+- name: Retrieve the latest syslinux bootloader from bintray
+  get_url:
+    url: "https://bintray.com/artifact/download/rackhd/binary/syslinux/{{ item }}"
+    dest: "{{ tftp_static_directory }}/{{ item }}"
+    validate_certs: no
+    force: yes
+  with_items:
+    - undionly.kkpxe

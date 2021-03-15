@@ -1,0 +1,29 @@
+---
+- name: Install isc-dhcp-server
+  apt:
+    name: isc-dhcp-server
+  become: true
+
+- name: Copy isc-dhcp-server template file to guest
+  copy:
+    src: isc-dhcp-server.in
+    dest: /etc/default/isc-dhcp-server
+  become: true
+
+- name: Copy isc-dhcp-server config script to guest
+  copy:
+    src: config_isc-dhcp-server.sh
+    dest: "{{ ansible_env.HOME }}/config_isc-dhcp-server.sh"
+    mode: 0755
+  become: true
+
+- name: Retrieve the control nic name, and update the /etc/default/isc-dhcp-server
+  shell: "{{ ansible_env.HOME }}/config_isc-dhcp-server.sh"
+  become: true
+
+- name: Copy dhcpd.conf file to guest
+  template:
+    src: dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+  notify: "restart dhcp"
+  become: true

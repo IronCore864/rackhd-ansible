@@ -1,0 +1,15 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name: ['postgresql=9.5+173ubuntu0.2', 'postgresql-contrib=9.5+173ubuntu0.2']
+  become: true
+
+- name: Set PostgreSQL password
+  shell: psql -U postgres -d postgres -c "alter user postgres with password 'postgres';"
+  become: true
+  become_user: postgres
+
+- name: Create pxe database
+  shell: psql -U postgres -d postgres -c "create database pxe;"
+  become: true
+  become_user: postgres

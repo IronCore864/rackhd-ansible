@@ -1,0 +1,11 @@
+---
+- name: Insert/update dns settings for rackhd server
+  blockinfile:
+    path: /etc/resolvconf/resolv.conf.d/base
+    block: |
+      {{ dns_block }}
+  become: true
+
+- name: Reload resolvconf
+  command: resolvconf -u
+  become: true

@@ -1,0 +1,10 @@
+---
+- name: Install build tools and dependencies
+  apt:
+    name: ['build-essential', 'genisoimage', 'debhelper', 'devscripts', 'fakeroot', 'git', 'ipmitool', 'snmp', 'snmp-mibs-downloader']
+    update_cache: yes
+  become: true
+
+- name: Download MIB files for SNMP
+  shell: "download-mibs"
+  become: true

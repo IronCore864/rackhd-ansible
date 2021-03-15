@@ -1,0 +1,6 @@
+# ansible config
+ansible_user: vagrant 
+
+rackhd_ip: 172.16.2.2
+ntp_server: "{{ groups['infra'][0] }}"
+dns: 172.16.2.4

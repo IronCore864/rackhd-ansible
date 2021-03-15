@@ -1,0 +1,28 @@
+---
+- name: Install PM2
+  shell: npm install -g pm2@3.2.2
+  become: true
+
+- name: Copy PM2 process file to home directory
+  copy:
+    src: rackhd-pm2-config.yml
+    dest: "{{ ansible_env.HOME }}"
+  become: true
+
+- name: Start PM2
+  command: "env PM2_HOME=/home/{{ ansible_user }}/.pm2 pm2 start ./rackhd-pm2-config.yml"
+  args:
+    chdir: "/home/{{ ansible_user }}"
+  become: true
+
+- name: PM2 save
+  command: "env PM2_HOME=/home/{{ ansible_user }}/.pm2 pm2 save"
+  args:
+    chdir: "/home/{{ ansible_user }}"
+  become: true
+
+- name: Register PM2 as a service
+  command: "pm2 startup systemd -u root --hp /home/{{ ansible_user }}"
+  args:
+    chdir: "/home/{{ ansible_user }}"
+  become: true

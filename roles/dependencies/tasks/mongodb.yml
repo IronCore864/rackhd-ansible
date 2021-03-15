@@ -1,0 +1,11 @@
+---
+- name: Install MongoDB
+  apt:
+    name: mongodb=1:2.6.10-0ubuntu1
+  become: true
+
+- name: Copy mongodb config file to home directory
+  copy:
+    src: mongodb.conf
+    dest: /etc
+  become: true

@@ -1,0 +1,16 @@
+---
+- hosts: rackhd
+  roles:
+    - dns
+    - dependencies
+    - isc-dhcp-server
+    - monorail
+    - install_rackhd_from_src
+    - download_images
+    - start_service
+    - setup_os_image
+  vars:
+    # branch of https://github.com/rackhd/rackhd to be used
+    - branch: "master"
+    # commit hash of the repo to be used
+    - hash: "d33f3c0"

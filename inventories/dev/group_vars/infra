@@ -1,0 +1,6 @@
+# DNS
+opnsense_ip: 172.16.2.1
+infra_server_ip: 172.16.2.3
+zone: tiexin.com
+reverse_zone: 2.16.172
+infra_vm_ip: "{{ groups['infra'][0] }}"

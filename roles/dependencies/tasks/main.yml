@@ -1,0 +1,10 @@
+---
+- import_tasks: build_tools.yml
+
+- import_tasks: rabbitmq.yml
+
+- import_tasks: mongodb.yml
+
+- import_tasks: node.yml
+
+- import_tasks: postgresql.yml

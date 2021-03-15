@@ -1,0 +1,68 @@
+{
+    "amqp": "amqp://localhost",
+    "apiServerAddress": "{{ rackhd_ip }}",
+    "rackhdPublicIp": null, 
+    "apiServerPort": 9030,
+    "dhcpGateway": "{{ rackhd_ip }}",
+    "dhcpProxyBindAddress": "{{ rackhd_ip }}",
+    "dhcpProxyBindPort": 4011,
+    "dhcpSubnetMask": "{{ rackhd_subnet_mask }}",
+    "httpEndpoints": [
+        {
+            "address": "0.0.0.0",
+            "port": 8080,
+            "httpsEnabled": false,
+            "proxiesEnabled": true,
+            "authEnabled": false,
+            "yamlName": ["monorail-2.0.yaml", "redfish.yaml"]
+        },
+        {
+            "address": "0.0.0.0",
+            "port": 8443,
+            "httpsEnabled": true,
+            "proxiesEnabled": true,
+            "authEnabled": false,
+            "yamlName": ["monorail-2.0.yaml", "redfish.yaml"]
+        },
+        {
+            "address": "{{ rackhd_ip }}",
+            "port": 9988,
+            "httpsEnabled": false,
+            "proxiesEnabled": true,
+            "authEnabled": false,
+            "yamlName": ["monorail-2.0-sb.yaml"]
+        }
+    ],
+    "taskGraphEndpoint": {
+        "address": "{{ rackhd_ip }}",
+        "port": 9030
+    },
+    "fileServerAddress": "{{ rackhd_ip }}",
+    "fileServerPort": 8080,
+    "fileServerPath": "/",
+    "httpDocsRoot": "./build/apidoc",
+    "httpFileServiceRoot": "./static/files",
+    "httpFileServiceType": "FileSystem",
+    "httpProxies": [{
+        "localPath": "/coreos",
+        "server": "http://stable.release.core-os.net",
+        "remotePath": "/amd64-usr"
+    }],
+    "httpStaticRoot": "/opt/monorail/static/http",
+    "authUsername": "admin",
+    "authPasswordHash": "KcBN9YobNV0wdux8h0fKNqi4uoKCgGl/j8c6YGlG7iA0PB3P9ojbmANGhDlcSBE0iOTIsYsGbtSsbqP4wvsVcw==",
+    "authPasswordSalt": "zlxkgxjvcFwm0M8sWaGojh25qNYO8tuNWUMN4xKPH93PidwkCAvaX2JItLA3p7BSCWIzkw4GwWuezoMvKf3UXg==",
+    "authTokenSecret": "RackHDRocks!",
+    "authTokenExpireIn": 86400,
+    "autoCreateObm": "true",
+    "mongo": "mongodb://localhost/pxe",
+    "sharedKey": "qxfO2D3tIJsZACu7UA6Fbw0avowo8r79ALzn+WeuC8M=",
+    "statsd": "127.0.0.1:8125",
+    "syslogBindAddress": "{{ rackhd_ip }}",
+    "syslogBindPort": 514,
+    "tftpBindAddress": "{{ rackhd_ip }}",
+    "tftpBindPort": 69,
+    "tftpRoot": "./static/tftp",
+    "minLogLevel": 2,
+    "arpCacheEnabled": true
+}

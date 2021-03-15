@@ -1,0 +1,13 @@
+---
+- name: Update repositories cache and install "chrony" package
+  apt:
+    name: chrony
+    update_cache: yes
+  become: true
+
+- name: Check if chrony is working or not
+  command: chronyc activity
+  register: command_result
+  failed_when: "'200 OK' not in command_result.stdout"
+  changed_when: false
+  become: true
